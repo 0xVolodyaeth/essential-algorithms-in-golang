@@ -1,3 +1,3 @@
-module github.com/vpatsenko/Rod_Stevens_algorithms_summary
+module github.com/vpatsenko/essential-algorithms-in-golang
 
 go 1.15
