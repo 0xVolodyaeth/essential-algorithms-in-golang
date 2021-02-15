@@ -36,17 +36,26 @@ func (ll *LinkedList) IterateFromTail() {
 		if current == ll.head {
 			break
 		}
+		if current.previous == ll.head {
+			fmt.Println(current)
+			break
+		}
 		fmt.Print(current, " ==> ")
 	}
 }
+
 func (ll *LinkedList) IterateFromHead() {
 	current := ll.head
 	for current.nextNode != nil {
 		current = current.nextNode
-		fmt.Print(current, " ==> ")
 		if current == ll.tail {
 			break
 		}
+		if current.nextNode == ll.tail {
+			fmt.Println(current)
+			break
+		}
+		fmt.Print(current, " ==> ")
 	}
 }
 
@@ -119,6 +128,50 @@ func (ll *LinkedList) DeleteAfter(nodeBeforeDelete *node) {
 	nodeToBeDeleted = nil
 }
 
+func (ll *LinkedList) CopyList() *LinkedList {
+	llCopy := new(LinkedList)
+	head := new(node)
+	tail := new(node)
+
+	head.data = 0
+	head.nextNode = tail
+	head.previous = nil
+
+	tail.data = 0
+	tail.previous = head
+	tail.nextNode = nil
+
+	llCopy.head = head
+	llCopy.tail = tail
+
+	current := ll.head.nextNode
+	for current.nextNode != nil {
+		llCopy.AddAtEnd(current.data)
+		current = current.nextNode
+	}
+
+	return llCopy
+}
+
+func (ll *LinkedList) InsertionSort() *LinkedList {
+
+	sorted := NewLinkedList()
+	input := ll.head.nextNode
+
+	for input != ll.tail {
+		nextNode := input
+		input = input.nextNode
+
+		afterMe := sorted.head
+		for afterMe.nextNode != sorted.tail && afterMe.nextNode.data < nextNode.data {
+			afterMe = afterMe.nextNode
+		}
+		sorted.InsertNode(nextNode.data, afterMe)
+	}
+
+	return sorted
+}
+
 func main() {
 	fmt.Println()
 	ll := NewLinkedList()
@@ -171,6 +224,19 @@ func main() {
 
 	fmt.Println("=== IterateFromTail ===")
 	ll.IterateFromTail()
+	fmt.Println()
+
+	fmt.Println("=== CopyList ===")
+
+	ll.IterateFromHead()
+	fmt.Println()
+	llCopy := ll.CopyList()
+	llCopy.IterateFromHead()
+	fmt.Println()
 
 	fmt.Println()
+	fmt.Println()
+	sorted := llCopy.InsertionSort()
+	sorted.IterateFromHead()
+	sorted.IterateFromTail()
 }
