@@ -215,6 +215,57 @@ func (ll *LinkedList) SelectionSort() *LinkedList {
 	return sortedList
 }
 
+func (ll *LinkedList) FindMax() *node {
+
+	input := ll.head
+	bestNode := input.nextNode
+	bestValue := input.nextNode.data
+	for input != ll.tail {
+
+		if input.data > bestValue {
+			bestValue = input.data
+			bestNode = input
+		}
+		input = input.nextNode
+	}
+
+	return bestNode
+}
+
+func (ll *LinkedList) FindNodeBeforeMax() *node {
+	return ll.FindMax().previous
+}
+
+func (ll *LinkedList) Slice() {}
+
+func (ll *LinkedList) SelectionSortWithoutCopy() {
+
+	best := ll.FindNodeBeforeMax()
+	fmt.Println(best)
+
+	// input := ll.head
+	// for input.nextNode != ll.tail {
+	// bestAfterMe := input
+	// bestValue := bestAfterMe.nextNode.data
+
+	// afterMe := input.nextNode
+	// for afterMe.nextNode != ll.tail {
+	// 	if afterMe.nextNode.data > bestValue {
+	// 		bestAfterMe = afterMe
+	// 		bestValue = afterMe.nextNode.data
+	// 	}
+	// 	afterMe = afterMe.nextNode
+	// }
+
+	// best := ll.FindMax()
+
+	// bestNode := bestAfterMe.nextNode
+	// ll.DeleteAfter(bestAfterMe)
+	// ll.AddAtBegginning(bestNode.data)
+	// input = input.nextNode
+	// }
+}
+
 func main() {
 	fmt.Println()
 	ll := NewLinkedList()
@@ -294,4 +345,17 @@ func main() {
 	ll.IterateFromHead()
 	sortedLl := ll.SelectionSort()
 	sortedLl.IterateFromHead()
+
+	fmt.Println()
+	fmt.Println("=== SelectionSort without copying")
+	ll = NewLinkedList()
+	ll.AddAtBegginning(5)
+	ll.AddAtBegginning(1)
+	ll.AddAtBegginning(4)
+	ll.AddAtBegginning(2)
+	ll.AddAtBegginning(3)
+	ll.IterateFromHead()
+	ll.SelectionSortWithoutCopy()
+	ll.IterateFromHead()
+
 }
