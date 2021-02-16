@@ -153,6 +153,23 @@ func (ll *LinkedList) CopyList() *LinkedList {
 	return llCopy
 }
 
+func (ll *LinkedList) InsertSortWithoutCopy() {
+	input := ll.head.nextNode
+
+	for input != ll.tail {
+		nextNode := input
+		input = input.nextNode
+
+		afterMe := ll.head
+		for afterMe != ll.tail && afterMe.nextNode.data < nextNode.data {
+			afterMe = afterMe.nextNode
+		}
+
+		ll.InsertNode(nextNode.data, afterMe)
+		ll.DeleteAfter(nextNode.previous)
+	}
+}
+
 func (ll *LinkedList) InsertionSort() *LinkedList {
 
 	sorted := NewLinkedList()
@@ -170,6 +187,32 @@ func (ll *LinkedList) InsertionSort() *LinkedList {
 	}
 
 	return sorted
+}
+
+func (ll *LinkedList) SelectionSort() *LinkedList {
+
+	sortedList := NewLinkedList()
+	input := ll.head
+	for input.nextNode != ll.tail {
+		bestAfterMe := input
+		bestValue := bestAfterMe.nextNode.data
+
+		afterMe := input.nextNode
+		for afterMe.nextNode != ll.tail {
+			if afterMe.nextNode.data > bestValue {
+				bestAfterMe = afterMe
+				bestValue = afterMe.nextNode.data
+			}
+			afterMe = afterMe.nextNode
+		}
+
+		bestNode := bestAfterMe.nextNode
+		ll.DeleteAfter(bestAfterMe)
+		sortedList.AddAtBegginning(bestNode.data)
+
+	}
+
+	return sortedList
 }
 
 func main() {
@@ -235,8 +278,20 @@ func main() {
 	fmt.Println()
 
 	fmt.Println()
-	fmt.Println()
+	fmt.Println("=== InsertionSort with copying===")
 	sorted := llCopy.InsertionSort()
 	sorted.IterateFromHead()
 	sorted.IterateFromTail()
+
+	fmt.Println()
+	fmt.Println("=== InsertionSort without copying ===")
+	llCopy.IterateFromHead()
+	llCopy.InsertSortWithoutCopy()
+	llCopy.IterateFromHead()
+
+	fmt.Println()
+	fmt.Println("=== SelectionSort ===")
+	ll.IterateFromHead()
+	sortedLl := ll.SelectionSort()
+	sortedLl.IterateFromHead()
 }

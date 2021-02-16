@@ -70,12 +70,9 @@ func (top *ListItem) DeleteAfter(afterMe *ListItem) {
 	afterMe.NextItem = afterMe.NextItem.NextItem
 }
 
-func (top)
-
 func newInt(a int) *int {
 	return &a
 }
-
 
 func main() {
 
