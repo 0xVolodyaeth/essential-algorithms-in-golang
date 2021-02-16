@@ -240,30 +240,15 @@ func (ll *LinkedList) Slice() {}
 
 func (ll *LinkedList) SelectionSortWithoutCopy() {
 
-	best := ll.FindNodeBeforeMax()
-	fmt.Println(best)
-
-	// input := ll.head
-	// for input.nextNode != ll.tail {
-	// bestAfterMe := input
-	// bestValue := bestAfterMe.nextNode.data
-
-	// afterMe := input.nextNode
-	// for afterMe.nextNode != ll.tail {
-	// 	if afterMe.nextNode.data > bestValue {
-	// 		bestAfterMe = afterMe
-	// 		bestValue = afterMe.nextNode.data
-	// 	}
-	// 	afterMe = afterMe.nextNode
-	// }
-
-	// best := ll.FindMax()
-
-	// bestNode := bestAfterMe.nextNode
-	// ll.DeleteAfter(bestAfterMe)
-	// ll.AddAtBegginning(bestNode.data)
-	// input = input.nextNode
-	// }
+	input := ll.head
+	for input.nextNode != ll.tail {
+		bestAfterMe := ll.FindNodeBeforeMax()
+		// TODO: Slice, чтобы каждый раз уменьшать инпут, нарезанием, потому что,
+		// после AddAtBeggining FindNodeBeforeMax находит тот же наиболбшй элемент, только в начале
+		ll.AddAtBegginning(bestAfterMe.nextNode.data)
+		ll.DeleteAfter(bestAfterMe)
+		input = input.nextNode
+	}
 }
 
 func main() {
