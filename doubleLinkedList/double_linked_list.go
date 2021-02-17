@@ -233,22 +233,32 @@ func (ll *LinkedList) FindMax() *node {
 }
 
 func (ll *LinkedList) FindNodeBeforeMax() *node {
-	return ll.FindMax().previous
+	maxNodePrevious := ll.FindMax().previous
+	if maxNodePrevious == ll.head {
+		return nil
+	}
+
+	return maxNodePrevious
 }
 
-func (ll *LinkedList) Slice() {}
+// Slice returns linked list from n to end
+func (ll *LinkedList) Slice(n int) *LinkedList {
+	slicedList := NewLinkedList()
+	slicedList.tail = ll.tail
 
-func (ll *LinkedList) SelectionSortWithoutCopy() {
-
-	input := ll.head
-	for input.nextNode != ll.tail {
-		bestAfterMe := ll.FindNodeBeforeMax()
-		// TODO: Slice, чтобы каждый раз уменьшать инпут, нарезанием, потому что,
-		// после AddAtBeggining FindNodeBeforeMax находит тот же наиболбшй элемент, только в начале
-		ll.AddAtBegginning(bestAfterMe.nextNode.data)
-		ll.DeleteAfter(bestAfterMe)
+	counter := 0
+	input := ll.head.nextNode
+	for input != ll.tail {
+		if counter == n {
+			slicedList.head.nextNode = input
+			input.previous = slicedList.head
+			return slicedList
+		}
 		input = input.nextNode
+		counter++
 	}
+
+	return nil
 }
 
 func main() {
@@ -332,15 +342,13 @@ func main() {
 	sortedLl.IterateFromHead()
 
 	fmt.Println()
-	fmt.Println("=== SelectionSort without copying")
+	fmt.Println("=== Slice Linked List ===")
 	ll = NewLinkedList()
-	ll.AddAtBegginning(5)
 	ll.AddAtBegginning(1)
-	ll.AddAtBegginning(4)
 	ll.AddAtBegginning(2)
 	ll.AddAtBegginning(3)
+	ll.AddAtBegginning(4)
 	ll.IterateFromHead()
-	ll.SelectionSortWithoutCopy()
-	ll.IterateFromHead()
-
+	llSliced := ll.Slice(1)
+	llSliced.IterateFromHead()
 }
