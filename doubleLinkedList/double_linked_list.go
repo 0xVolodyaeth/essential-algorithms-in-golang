@@ -241,3 +241,21 @@ func (ll *LinkedList) Slice(n int) *LinkedList {
 
 	return nil
 }
+
+func (ll *LinkedList) Head() *node {
+	return ll.head
+}
+func (ll *LinkedList) Tail() *node {
+	return ll.tail
+}
+
+func (n *node) NextNode() (*node, error) {
+	if n.nextNode == nil {
+		return nil, errors.New("there is no next node")
+	}
+	return n.nextNode, nil
+}
+
+func (n *node) Data() int {
+	return n.data
+}
