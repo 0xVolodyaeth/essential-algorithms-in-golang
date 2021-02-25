@@ -153,7 +153,7 @@ func (ll *LinkedList) CopyList() *LinkedList {
 	return llCopy
 }
 
-func (ll *LinkedList) InsertSortWithoutCopy() {
+func (ll *LinkedList) InsertSort() {
 	input := ll.head.nextNode
 
 	for input != ll.tail {
@@ -168,25 +168,6 @@ func (ll *LinkedList) InsertSortWithoutCopy() {
 		ll.InsertNode(nextNode.data, afterMe)
 		ll.DeleteAfter(nextNode.previous)
 	}
-}
-
-func (ll *LinkedList) InsertionSort() *LinkedList {
-
-	sorted := NewLinkedList()
-	input := ll.head.nextNode
-
-	for input != ll.tail {
-		nextNode := input
-		input = input.nextNode
-
-		afterMe := sorted.head
-		for afterMe.nextNode != sorted.tail && afterMe.nextNode.data < nextNode.data {
-			afterMe = afterMe.nextNode
-		}
-		sorted.InsertNode(nextNode.data, afterMe)
-	}
-
-	return sorted
 }
 
 func (ll *LinkedList) SelectionSort() *LinkedList {
@@ -249,7 +230,7 @@ func (ll *LinkedList) Slice(n int) *LinkedList {
 	counter := 0
 	input := ll.head.nextNode
 	for input != ll.tail {
-		if counter == n {
+		if counter == n+1 {
 			slicedList.head.nextNode = input
 			input.previous = slicedList.head
 			return slicedList
@@ -260,95 +241,3 @@ func (ll *LinkedList) Slice(n int) *LinkedList {
 
 	return nil
 }
-
-// func main() {
-// 	fmt.Println()
-// 	ll := NewLinkedList()
-
-// 	fmt.Println("=== AddAtBegginning ===")
-// 	ll.AddAtBegginning(1)
-// 	ll.AddAtBegginning(2)
-// 	ll.AddAtBegginning(3)
-// 	ll.IterateFromHead()
-// 	fmt.Println()
-// 	fmt.Println()
-
-// 	ll.AddAtEnd(2)
-// 	fmt.Println("=== AddAtEnd ===")
-// 	ll.AddAtEnd(10)
-// 	ll.IterateFromHead()
-// 	fmt.Println()
-// 	fmt.Println()
-
-// 	fmt.Println("=== FindNode ===")
-// 	node, _ := ll.FindNode(1)
-// 	fmt.Println(node)
-// 	fmt.Println()
-// 	fmt.Println()
-
-// 	fmt.Println("=== FindNodeBefore ===")
-// 	node, _ = ll.FindNodeBefore(1)
-// 	fmt.Println(node)
-// 	fmt.Println()
-// 	fmt.Println()
-
-// 	fmt.Println("=== InsertNode ===")
-// 	nodeBeforeInsertion, _ := ll.FindNode(2)
-// 	ll.InsertNode(100, nodeBeforeInsertion)
-// 	ll.IterateFromHead()
-// 	fmt.Println()
-// 	fmt.Println()
-
-// 	fmt.Println("=== Delete ===")
-// 	nodeBeforeInsertion, _ = ll.FindNode(2)
-// 	ll.DeleteAfter(nodeBeforeInsertion)
-// 	ll.IterateFromHead()
-// 	fmt.Println()
-// 	fmt.Println()
-
-// 	fmt.Println("=== IterateFromHead ===")
-// 	ll.IterateFromHead()
-// 	fmt.Println()
-// 	fmt.Println()
-
-// 	fmt.Println("=== IterateFromTail ===")
-// 	ll.IterateFromTail()
-// 	fmt.Println()
-
-// 	fmt.Println("=== CopyList ===")
-
-// 	ll.IterateFromHead()
-// 	fmt.Println()
-// 	llCopy := ll.CopyList()
-// 	llCopy.IterateFromHead()
-// 	fmt.Println()
-
-// 	fmt.Println()
-// 	fmt.Println("=== InsertionSort with copying===")
-// 	sorted := llCopy.InsertionSort()
-// 	sorted.IterateFromHead()
-// 	sorted.IterateFromTail()
-
-// 	fmt.Println()
-// 	fmt.Println("=== InsertionSort without copying ===")
-// 	llCopy.IterateFromHead()
-// 	llCopy.InsertSortWithoutCopy()
-// 	llCopy.IterateFromHead()
-
-// 	fmt.Println()
-// 	fmt.Println("=== SelectionSort ===")
-// 	ll.IterateFromHead()
-// 	sortedLl := ll.SelectionSort()
-// 	sortedLl.IterateFromHead()
-
-// 	fmt.Println()
-// 	fmt.Println("=== Slice Linked List ===")
-// 	ll = NewLinkedList()
-// 	ll.AddAtBegginning(1)
-// 	ll.AddAtBegginning(2)
-// 	ll.AddAtBegginning(3)
-// 	ll.AddAtBegginning(4)
-// 	ll.IterateFromHead()
-// 	llSliced := ll.Slice(1)
-// 	llSliced.IterateFromHead()
-// }
