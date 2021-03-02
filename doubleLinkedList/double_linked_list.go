@@ -256,6 +256,13 @@ func (n *node) NextNode() (*node, error) {
 	return n.nextNode, nil
 }
 
+func (n *node) PrevNode() (*node, error) {
+	if n.previous == nil {
+		return nil, errors.New("there is no previous node")
+	}
+	return n.previous, nil
+}
+
 func (n *node) Data() int {
 	return n.data
 }

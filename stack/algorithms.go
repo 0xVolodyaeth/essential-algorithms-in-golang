@@ -1,5 +1,6 @@
 package stack
 
+// 2N steps => O(n)
 func ReverseArray(slice []int) ([]int, error) {
 	st := NewStack()
 	for _, i := range slice {
