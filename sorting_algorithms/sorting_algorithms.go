@@ -63,7 +63,7 @@ func makeHeap(arr []int) []int {
 			parent := (idx - 1) / 2
 
 			// потомок меньше родителя - выходим
-			if arr[idx] <= arr[parent] {
+				if arr[idx] <= arr[parent] {
 				break
 			}
 
