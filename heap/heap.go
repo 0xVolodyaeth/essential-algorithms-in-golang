@@ -1,26 +1,22 @@
-package main
+package heap
 
-import (
-	"fmt"
-)
-
-func main() {
-
-	slice := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}
-	fmt.Println(slice)
-
-	makeHeapFromSlice(slice)
-	fmt.Println("heap: ", slice)
-
-	for len(slice) != 0 {
-		fmt.Println(RemoveTopItem(&slice))
-	}
-
-	fmt.Println(slice)
+type Heap struct {
+	slice *[]int
 }
 
-func makeHeapFromSlice(arr []int) {
+func NewHeap(slice *[]int) *Heap {
+	h := &Heap{slice}
+	h.makeHeap()
+	return h
+}
 
+func (h *Heap) Len() int {
+	return len(*h.slice)
+}
+
+func (h *Heap) makeHeap() {
+
+	arr := *h.slice
 	for i := 0; i < len(arr); i++ {
 
 		idx := i
@@ -42,9 +38,8 @@ func makeHeapFromSlice(arr []int) {
 	}
 }
 
-func RemoveTopItem(arrPtr *[]int) int {
-
-	arr := *arrPtr
+func (h *Heap) RemoveTopItem() int {
+	arr := *h.slice
 	result := arr[0]
 	count := len(arr)
 
@@ -78,6 +73,6 @@ func RemoveTopItem(arrPtr *[]int) int {
 		index = swapChild
 	}
 
-	*arrPtr = arr[:count-1]
+	*h.slice = arr[:count-1]
 	return result
 }
