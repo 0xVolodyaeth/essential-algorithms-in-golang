@@ -113,3 +113,20 @@ func pivotFunc(slice []int, start, end int) int {
 	slice[i+1], slice[end] = slice[end], slice[i+1]
 	return i + 1
 }
+
+func pivoter(slice []int, start, end int) int {
+
+	pivot := slice[end]
+	i := start - 1
+
+	for j := start; j <= end; j++ {
+
+		if slice[j] < pivot {
+			i++
+			slice[j], slice[i] = slice[i], slice[j]
+		}
+	}
+
+	slice[i+1], slice[end] = slice[end], slice[i+1]
+	return i + 1
+}

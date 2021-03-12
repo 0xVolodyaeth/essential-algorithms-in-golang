@@ -120,32 +120,33 @@ func RemoveTopItem(arrPtr *[]int) int {
 	return result
 }
 
-func QuickSort(arr []int, start, end int) {
-
-	// log.Println(partition(arr, 0, len(arr)-1))
+func QuickSort(slice []int, start, end int) {
 
 	if start < end {
-		pi := partition(arr, start, end)
+		pivot := pivotFunc(slice, start, end)
 
-		QuickSort(arr, start, pi-1)
-		QuickSort(arr, pi+1, end)
+		QuickSort(slice, start, pivot-1)
+		QuickSort(slice, pivot+1, end)
 	}
-
-	// return nil
 }
 
-func partition(arr []int, start, end int) int {
+func pivotFunc(slice []int, start, end int) int {
 
-	pivot := arr[end]
+	pivot := slice[end]
 	i := start - 1
 
-	for j := 0; j <= end-1; j++ {
-		if arr[j] < pivot {
+	for j := start; j <= end-1; j++ {
+
+		if slice[j] < pivot {
 			i++
-			arr[i], arr[j] = arr[j], arr[i]
+			slice[i], slice[j] = slice[j], slice[i]
 		}
 	}
 
-	arr[i+1], arr[end] = arr[end], arr[i+1]
+	slice[i+1], slice[end] = slice[end], slice[i+1]
 	return i + 1
+}
+
+func MergeSort(slice []int, values []int, start, end int) {
+
 }
