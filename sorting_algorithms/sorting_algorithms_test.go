@@ -36,3 +36,11 @@ func TestQuickSort(t *testing.T) {
 	QuickSort(arr, 0, len(arr)-1)
 	require.Equal(t, exp, arr)
 }
+
+func TestMergeSort(t *testing.T) {
+	arr := []int{2, 3, 1, 4, 7, 5, 6, 8, 10, 9}
+	exp := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+	arr = MergeSort(arr)
+	require.Equal(t, exp, arr)
+}

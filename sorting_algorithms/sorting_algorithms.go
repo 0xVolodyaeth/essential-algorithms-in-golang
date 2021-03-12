@@ -147,6 +147,56 @@ func pivotFunc(slice []int, start, end int) int {
 	return i + 1
 }
 
-func MergeSort(slice []int, values []int, start, end int) {
+func MergeSort(slice []int) []int {
 
+	if len(slice) == 1 {
+		return slice
+	}
+
+	midpoint := int(len(slice) / 2)
+
+	left := make([]int, midpoint)
+	right := make([]int, len(slice)-midpoint)
+
+	for i := 0; i < len(slice); i++ {
+		if i < midpoint {
+			left[i] = slice[i]
+		} else {
+			right[i-midpoint] = slice[i]
+		}
+	}
+
+	return merge(MergeSort(left), MergeSort(right))
+}
+
+func merge(sliceLeft []int, sliceRight []int) []int {
+
+	mergedSlice := make([]int, len(sliceLeft)+len(sliceRight))
+	i := 0
+	leftIndex := 0
+	rightIndex := 0
+
+	for leftIndex < len(sliceLeft) && rightIndex < len(sliceRight) {
+
+		if sliceLeft[leftIndex] < sliceRight[rightIndex] {
+			mergedSlice[i] = sliceLeft[leftIndex]
+			leftIndex++
+		} else {
+			mergedSlice[i] = sliceRight[rightIndex]
+			rightIndex++
+		}
+		i++
+	}
+
+	for j := leftIndex; j < len(sliceLeft); j++ {
+		mergedSlice[i] = sliceLeft[j]
+		i++
+	}
+
+	for j := rightIndex; j < len(sliceRight); j++ {
+		mergedSlice[i] = sliceRight[j]
+		i++
+	}
+
+	return mergedSlice
 }
